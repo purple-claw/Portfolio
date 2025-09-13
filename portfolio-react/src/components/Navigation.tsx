@@ -1,40 +1,34 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
-import { cn } from '@/lib/utils';
-
-const navItems = [
-  { href: '#home', label: 'Home' },
-  { href: '#about', label: 'About' },
-  { href: '#work', label: 'Work' },
-  { href: '#contact', label: 'Contact' },
-];
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('home');
+  const [activeSection, setActiveSection] = useState('hero');
   const [isScrolled, setIsScrolled] = useState(false);
 
-  // Handle scroll for header background
+  const navLinks = [
+    { href: '#hero', text: 'Home' },
+    { href: '#about', text: 'About' },
+    { href: '#skills', text: 'Skills' },
+    { href: '#work', text: 'Work' },
+    { href: '#certifications', text: 'Certifications' },
+    { href: '#contact', text: 'Contact' },
+  ];
+
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
+      const scrollPosition = window.scrollY;
+      setIsScrolled(scrollPosition > 50);
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  // Handle active section detection
-  useEffect(() => {
-    const handleScroll = () => {
-      const sections = navItems.map(item => item.href.slice(1));
+      // Update active section
+      const sections = navLinks.map(link => link.href.slice(1));
       const currentSection = sections.find(section => {
         const element = document.getElementById(section);
         if (element) {
           const rect = element.getBoundingClientRect();
-          return rect.top <= 100 && rect.bottom >= 100;
+          return rect.top <= 100 && rect.bottom > 100;
         }
         return false;
       });
@@ -46,120 +40,462 @@ export default function Navigation() {
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [navLinks]);
 
   const handleNavClick = (href: string) => {
-    const element = document.getElementById(href.slice(1));
+    const targetId = href.slice(1);
+    const element = document.getElementById(targetId);
     if (element) {
-      element.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start',
+      const offsetTop = element.offsetTop - 100;
+      window.scrollTo({
+        top: offsetTop,
+        behavior: 'smooth'
       });
     }
     setIsMenuOpen(false);
   };
 
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
     <>
-      {/* Top contact bar */}
-      <div className="fixed top-0 left-0 right-0 z-50 bg-background-tertiary border-t-2 border-accent-primary">
-        <div className="container">
-          <div className="flex justify-end py-2">
-            <a
-              href="mailto:nitinjuttuka63@gmail.com"
-              className="text-sm text-text-primary hover:text-accent-primary transition-colors duration-300"
-            >
-              Email me
-            </a>
-          </div>
-        </div>
+      {/* Global Styles */}
+      <style jsx global>{`
+        @keyframes float {
+          0%, 100% { transform: translate(0, 0) scale(1); }
+          25% { transform: translate(30px, -40px) scale(1.1); }
+          50% { transform: translate(-20px, 20px) scale(0.9); }
+          75% { transform: translate(40px, 10px) scale(1.05); }
+        }
+
+        @keyframes gradient-flow {
+          0%, 100% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+        }
+
+        @keyframes shine {
+          0% { left: -100%; }
+          100% { left: 100%; }
+        }
+
+        .nav-link:hover {
+          color: white !important;
+          transform: translateY(-2px);
+        }
+
+        .nav-link:hover .nav-hover-effect {
+          opacity: 1;
+        }
+
+        .nav-link:hover .nav-ripple {
+          width: 100px;
+          height: 100px;
+        }
+
+        .logo-icon:hover {
+          transform: scale(1.1) rotate(5deg);
+        }
+
+        .logo-icon::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+          animation: shine 3s infinite;
+        }
+
+        .mobile-nav-link:hover {
+          color: white !important;
+          background: rgba(255, 255, 255, 0.1) !important;
+          transform: translateX(10px);
+        }
+
+        .mobile-menu-btn:hover {
+          background: rgba(100, 255, 218, 0.2) !important;
+          transform: scale(1.05);
+        }
+
+        .hamburger-line.active.line-1 {
+          transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger-line.active.line-2 {
+          opacity: 0;
+        }
+
+        .hamburger-line.active.line-3 {
+          transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        @media (max-width: 768px) {
+          .navbar-nav {
+            display: none !important;
+          }
+
+          .mobile-menu-btn {
+            display: flex !important;
+          }
+        }
+
+        @media (max-width: 640px) {
+          .navbar-container {
+            margin: 0 1rem !important;
+            padding: 0.75rem 1rem !important;
+          }
+
+          .brand-name {
+            font-size: 1rem !important;
+          }
+
+          .logo-icon {
+            width: 2.5rem !important;
+            height: 2.5rem !important;
+          }
+        }
+      `}</style>
+
+      {/* Background Effects */}
+      <div style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        pointerEvents: 'none',
+        zIndex: 0,
+      }}>
+        {/* Floating Orbs */}
+        <div style={{
+          position: 'absolute',
+          width: '150px',
+          height: '150px',
+          borderRadius: '50%',
+          opacity: 0.15,
+          filter: 'blur(40px)',
+          background: 'radial-gradient(circle, #64ffda 20%, transparent)',
+          top: '10%',
+          left: '20%',
+          animation: 'float 8s ease-in-out infinite',
+          animationDelay: '0s',
+        }}></div>
+        
+        <div style={{
+          position: 'absolute',
+          width: '200px',
+          height: '200px',
+          borderRadius: '50%',
+          opacity: 0.15,
+          filter: 'blur(40px)',
+          background: 'radial-gradient(circle, #00bcd4 20%, transparent)',
+          top: '20%',
+          right: '20%',
+          animation: 'float 8s ease-in-out infinite',
+          animationDelay: '2s',
+        }}></div>
+        
+        <div style={{
+          position: 'absolute',
+          width: '120px',
+          height: '120px',
+          borderRadius: '50%',
+          opacity: 0.15,
+          filter: 'blur(40px)',
+          background: 'radial-gradient(circle, #3f51b5 20%, transparent)',
+          bottom: '30%',
+          left: '30%',
+          animation: 'float 8s ease-in-out infinite',
+          animationDelay: '4s',
+        }}></div>
+        
+        <div style={{
+          position: 'absolute',
+          width: '180px',
+          height: '180px',
+          borderRadius: '50%',
+          opacity: 0.15,
+          filter: 'blur(40px)',
+          background: 'radial-gradient(circle, #9c27b0 20%, transparent)',
+          top: '50%',
+          right: '10%',
+          animation: 'float 8s ease-in-out infinite',
+          animationDelay: '6s',
+        }}></div>
       </div>
 
-      {/* Main navigation */}
-      <header 
-        className={cn(
-          'fixed top-8 left-0 right-0 z-40 transition-all duration-300',
-          isScrolled ? 'bg-background-primary/95 backdrop-blur-md shadow-lg' : ''
-        )}
-      >
-        <div className="container">
-          <nav className="flex items-center justify-between py-4">
-            {/* Logo */}
-            <a
-              href="#home"
-              onClick={(e) => {
-                e.preventDefault();
-                handleNavClick('#home');
+      {/* Navigation Header */}
+      <header style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        zIndex: 50,
+        padding: isScrolled ? '1rem 0' : '2rem 0',
+        transition: 'all 0.3s ease',
+      }}>
+        <div 
+          className="navbar-container"
+          style={{
+            maxWidth: '1500px',
+            margin: '0 auto',
+            padding: '0.5rem 1.5rem',
+            background: isScrolled ? 'rgba(0, 0, 0, 0.25)' : 'rgba(0, 0, 0, 0.15)',
+            backdropFilter: 'blur(10px)',
+            border: `1px solid ${isScrolled ? 'hsla(0, 0%, 100%, 0.03)' : 'hsla(0, 0%, 100%, 0.00)'}`,
+            borderRadius: '0.5rem',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            boxShadow: isScrolled ? '0 12px 40px rgba(0, 0, 0, 0.4)' : '0 8px 32px rgba(0, 0, 0, 0.3)',
+          }}
+        >
+          {/* Logo Section */}
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.9rem',
+          }}>
+            <div 
+              className="logo-icon"
+              style={{
+                width: '3rem',
+                height: '3rem',
+                background: 'linear-gradient(135deg, #64ffda, #3f51b5, #9c27b0)',
+                borderRadius: '0.75rem',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                position: 'relative',
+                overflow: 'hidden',
+                cursor: 'pointer',
+                transition: 'transform 0.3s ease',
               }}
-              className="text-2xl font-bold text-accent-primary hover:scale-105 transition-transform duration-300"
             >
-              MK
-            </a>
-
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-8">
-              {navItems.map((item) => (
-                <a
-                  key={item.href}
-                  href={item.href}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleNavClick(item.href);
-                  }}
-                  className={cn(
-                    'relative text-sm font-medium transition-colors duration-300 py-2',
-                    activeSection === item.href.slice(1)
-                      ? 'text-accent-primary'
-                      : 'text-text-primary hover:text-accent-primary'
-                  )}
-                >
-                  {item.label}
-                  {/* Active indicator */}
-                  {activeSection === item.href.slice(1) && (
-                    <span className="absolute bottom-0 left-0 w-full h-0.5 bg-accent-primary rounded-full" />
-                  )}
-                </a>
-              ))}
+              <span style={{
+                color: 'white',
+                fontWeight: 'bold',
+                fontSize: '1.125rem',
+                position: 'relative',
+                zIndex: 1,
+              }}>NS</span>
             </div>
-
-            {/* Mobile menu button */}
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden p-2 text-text-primary hover:text-accent-primary transition-colors duration-300"
-              aria-label="Toggle menu"
+            
+            <span 
+              className="brand-name"
+              style={{
+                color: 'white',
+                fontSize: '1.25rem',
+                fontWeight: 'bold',
+                background: 'linear-gradient(135deg, #64ffda, #00bcd4, #3f51b5)',
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundSize: '200% 100%',
+                animation: 'gradient-flow 4s ease infinite',
+              }}
             >
-              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
-          </nav>
-        </div>
+              Nithin Sri
+            </span>
+          </div>
 
-        {/* Mobile menu */}
-        {isMenuOpen && (
-          <div className="md:hidden bg-background-secondary/95 backdrop-blur-md border-t border-accent-primary/20">
-            <div className="container py-4">
-              <div className="flex flex-col space-y-4">
-                {navItems.map((item) => (
+          {/* Desktop Navigation Menu */}
+          <nav 
+            className="navbar-nav"
+            style={{
+              flex: 1,
+              display: 'flex',
+              justifyContent: 'center',
+              margin: '0 2rem',
+            }}
+          >
+            <ul style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '2.75rem',
+              listStyle: 'none',
+              margin: 0,
+              padding: 0,
+            }}>
+              {navLinks.map((link, index) => (
+                <li key={link.href} style={{ position: 'relative' }}>
                   <a
-                    key={item.href}
-                    href={item.href}
+                    href={link.href}
+                    className="nav-link"
+                    style={{
+                      position: 'relative',
+                      display: 'block',
+                      padding: '0.5rem 1.5rem',
+                      color: activeSection === link.href.slice(0) ? '#64ffda' : 'rgba(255, 255, 255, 0.9)',
+                      textDecoration: 'none',
+                      fontWeight: '600',
+                      fontSize: '1.15rem',
+                      borderRadius: '2rem',
+                      transition: 'all 0.3s ease',
+                      overflow: 'hidden',
+                      background: activeSection === link.href.slice(0) ? '#70a79a4b' : 'transparent',
+                      border: activeSection === link.href.slice(1) ? '0.75px solid hsla(166, 80%, 52%, 0.96)' : '1px solid transparent',
+                    }}
                     onClick={(e) => {
                       e.preventDefault();
-                      handleNavClick(item.href);
+                      handleNavClick(link.href);
                     }}
-                    className={cn(
-                      'text-sm font-medium transition-colors duration-300 py-2 px-4 rounded',
-                      activeSection === item.href.slice(1)
-                        ? 'text-accent-primary bg-accent-hover'
-                        : 'text-text-primary hover:text-accent-primary hover:bg-accent-hover'
-                    )}
                   >
-                    {item.label}
+                    <span style={{ position: 'relative', zIndex: 1 }}>{link.text}</span>
+                    
+                    {/* Hover Effect */}
+                    <div 
+                      className="nav-hover-effect"
+                      style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        background: 'linear-gradient(135deg, rgba(188, 69, 199, 0.26), rgba(59, 130, 246, 0.2))',
+                        opacity: 0,
+                        transition: 'opacity 0.3s ease',
+                        borderRadius: '0.95rem',
+                      }}
+                    />
+                    
+                    {/* Ripple Effect */}
+                    <div 
+                      className="nav-ripple"
+                      style={{
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        width: 0,
+                        height: 0,
+                        background: 'radial-gradient(circle, rgba(100, 255, 218, 0.4) 0%, transparent 70%)',
+                        borderRadius: '50%',
+                        transform: 'translate(-50%, -50%)',
+                        transition: 'all 0.6s ease',
+                      }}
+                    />
                   </a>
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          {/* Mobile Menu Button */}
+          <button 
+            className="mobile-menu-btn"
+            style={{
+              display: 'none',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+              width: '3rem',
+              height: '3rem',
+              background: 'rgba(100, 255, 218, 0.1)',
+              border: '1px solid rgba(100, 255, 218, 0.3)',
+              borderRadius: '0.75rem',
+              cursor: 'pointer',
+              transition: 'all 0.3s ease',
+            }}
+            onClick={toggleMenu}
+          >
+            <span 
+              className={`hamburger-line line-1 ${isMenuOpen ? 'active' : ''}`}
+              style={{
+                width: '1.25rem',
+                height: '2px',
+                background: 'white',
+                margin: '2px 0',
+                transition: 'all 0.3s ease',
+                borderRadius: '1px',
+              }}
+            />
+            <span 
+              className={`hamburger-line line-2 ${isMenuOpen ? 'active' : ''}`}
+              style={{
+                width: '1.25rem',
+                height: '2px',
+                background: 'white',
+                margin: '2px 0',
+                transition: 'all 0.3s ease',
+                borderRadius: '1px',
+              }}
+            />
+            <span 
+              className={`hamburger-line line-3 ${isMenuOpen ? 'active' : ''}`}
+              style={{
+                width: '1.25rem',
+                height: '2px',
+                background: 'white',
+                margin: '2px 0',
+                transition: 'all 0.3s ease',
+                borderRadius: '1px',
+              }}
+            />
+          </button>
+        </div>
+
+        {/* Mobile Menu */}
+        <AnimatePresence>
+          {isMenuOpen && (
+            <motion.div 
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+              style={{
+                background: 'rgba(0, 0, 0, 0.25)',
+                backdropFilter: 'blur(20px)',
+                borderTop: '1px solid rgba(255, 255, 255, 0.1)',
+                margin: '0 2rem',
+                borderRadius: '0 0 1rem 1rem',
+                overflow: 'hidden',
+              }}
+            >
+              <nav style={{ padding: '1rem' }}>
+                <ul style={{
+                  listStyle: 'none',
+                  margin: 0,
+                  padding: 0,
+                }}>
+                  {navLinks.map((link, index) => (
+                    <motion.li 
+                      key={link.href}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.1 }}
+                      style={{ marginBottom: '0.5rem' }}
+                    >
+                      <a
+                        href={link.href}
+                        className="mobile-nav-link"
+                        style={{
+                          display: 'block',
+                          padding: '1rem 1.5rem',
+                          color: activeSection === link.href.slice(1) ? '#64ffda' : 'rgba(255, 255, 255, 0.9)',
+                          textDecoration: 'none',
+                          fontWeight: '500',
+                          borderRadius: '0.75rem',
+                          transition: 'all 0.3s ease',
+                          background: activeSection === link.href.slice(1) ? 'rgba(100, 255, 218, 0.1)' : 'transparent',
+                          border: activeSection === link.href.slice(1) ? '1px solid rgba(100, 255, 218, 0.3)' : '1px solid transparent',
+                        }}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleNavClick(link.href);
+                        }}
+                      >
+                        {link.text}
+                      </a>
+                    </motion.li>
+                  ))}
+                </ul>
+              </nav>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </header>
     </>
   );
