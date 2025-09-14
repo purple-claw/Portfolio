@@ -114,16 +114,6 @@ h2 {
   position: relative;
 }
 
-h2::before {
-  content: '';
-  display: inline-block;
-  width: 50px;
-  height: 2px;
-  background: var(--accent-primary);
-  margin-right: 15px;
-  vertical-align: middle;
-}
-
 h3 {
   font-size: 1.5rem;
   font-weight: 600;

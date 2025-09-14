@@ -157,6 +157,29 @@ export default function HeroSection() {
     <>
       {/* Global Styles */}
       <style jsx global>{`
+        /* Force remove any decorative elements from h2 tags */
+        h2::before {
+          display: none !important;
+          content: none !important;
+        }
+
+        h2::after {
+          display: none !important;
+          content: none !important;
+        }
+
+        .greeting-text::before,
+        .greeting-text::after {
+          display: none !important;
+          content: none !important;
+        }
+
+        .role-text::before,
+        .role-text::after {
+          display: none !important;
+          content: none !important;
+        }
+
         @keyframes gradient-flow {
           0%, 100% { background-position: 0% 50%; }
           50% { background-position: 100% 50%; }
@@ -242,8 +265,8 @@ export default function HeroSection() {
           left: -100%;
           width: 100%;
           height: 100%;
-          background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-          transition: left 0.6s ease;
+          background: linear-gradient(90deg, transparent, hsla(0, 0%, 100%, 0.00), transparent);
+          transition: left 0.5s ease;
         }
 
         .hero-button:hover::before {
@@ -308,9 +331,9 @@ export default function HeroSection() {
                 variants={greetingVariants}
                 className="greeting-text"
                 style={{
-                  color: '#64ffda',
-                  fontSize: '1.5rem',
-                  fontWeight: '500',
+                  color: 'rgba(234, 240, 238, 1)',
+                  fontSize: '1.45rem',
+                  fontWeight: '700',
                   marginBottom: '1rem',
                   textAlign: 'left',
                 }}
@@ -321,9 +344,9 @@ export default function HeroSection() {
                 variants={greetingVariants}
                 className="greeting-text"
                 style={{
-                  color: '#64ffda',
-                  fontSize: '1.5rem',
-                  fontWeight: '500',
+                  color: 'rgba(238, 239, 239, 1)',
+                  fontSize: '1.45rem',
+                  fontWeight: '700',
                   textAlign: 'left',
                 }}
               >
@@ -430,7 +453,7 @@ export default function HeroSection() {
                 onClick={handleWorkClick}
                 className="hero-button text-base font-medium"
                 style={{
-                  padding: '0.75rem 2rem',
+                  padding: '0.75rem 1rem',
                   fontSize: '1.25rem',
                   fontWeight: '600',
                   color: 'white',
