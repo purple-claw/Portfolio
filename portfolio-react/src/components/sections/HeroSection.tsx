@@ -1,12 +1,71 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
 
 export default function HeroSection() {
   const roles = [
     "Aspiring Software Engineer",
     "LLM Developer & AI & ML Researcher"
   ];
+
+  // Typing animation state
+  const [firstGreeting, setFirstGreeting] = useState('');
+  const [secondGreeting, setSecondGreeting] = useState('');
+  const [showFirstCursor, setShowFirstCursor] = useState(true);
+  const [showSecondCursor, setShowSecondCursor] = useState(false);
+
+  const firstText = "Hi There,";
+  const secondText = "Welcome to my Space,";
+
+  useEffect(() => {
+    let firstTimeout: NodeJS.Timeout;
+    let secondTimeout: NodeJS.Timeout;
+
+    // Type first greeting
+    const typeFirstGreeting = () => {
+      let i = 0;
+      const typing = () => {
+        if (i < firstText.length) {
+          setFirstGreeting(firstText.slice(0, i + 1));
+          i++;
+          firstTimeout = setTimeout(typing, 100);
+        } else {
+          setShowFirstCursor(false);
+          // Start second greeting after a delay
+          setTimeout(() => {
+            setShowSecondCursor(true);
+            typeSecondGreeting();
+          }, 300);
+        }
+      };
+      typing();
+    };
+
+    // Type second greeting
+    const typeSecondGreeting = () => {
+      let i = 0;
+      const typing = () => {
+        if (i < secondText.length) {
+          setSecondGreeting(secondText.slice(0, i + 1));
+          i++;
+          secondTimeout = setTimeout(typing, 100);
+        } else {
+          setShowSecondCursor(false);
+        }
+      };
+      typing();
+    };
+
+    // Start typing after component mounts
+    const startDelay = setTimeout(typeFirstGreeting, 500);
+
+    return () => {
+      clearTimeout(startDelay);
+      clearTimeout(firstTimeout);
+      clearTimeout(secondTimeout);
+    };
+  }, []);
 
   const handleWorkClick = () => {
     document.getElementById('work')?.scrollIntoView({
@@ -180,6 +239,20 @@ export default function HeroSection() {
           content: none !important;
         }
 
+        @keyframes typing-cursor {
+          0%, 50% { opacity: 1; }
+          51%, 100% { opacity: 0; }
+        }
+
+        .typing-cursor {
+          display: inline-block;
+          width: 2px;
+          height: 1.2em;
+          background-color: rgba(100, 255, 218, 0.8);
+          margin-left: 2px;
+          animation: typing-cursor 1s infinite;
+        }
+
         @keyframes gradient-flow {
           0%, 100% { background-position: 0% 50%; }
           50% { background-position: 100% 50%; }
@@ -266,7 +339,7 @@ export default function HeroSection() {
           width: 100%;
           height: 100%;
           background: linear-gradient(90deg, transparent, hsla(0, 0%, 100%, 0.00), transparent);
-          transition: left 0.5s ease;
+          transition: left 0.5s easAspiring Software Engineere;
         }
 
         .hero-button:hover::before {
@@ -319,9 +392,9 @@ export default function HeroSection() {
             initial="hidden"
             animate="visible"
           > 
-            {/* Static Greeting with Smooth Animations */}
+            {/* Typing Greeting Animation */}
             <div style={{
-              marginBottom: '2rem',
+              marginBottom: '1rem',
               textAlign: 'left',
               display: 'flex',
               flexDirection: 'column',
@@ -336,9 +409,11 @@ export default function HeroSection() {
                   fontWeight: '700',
                   marginBottom: '1rem',
                   textAlign: 'left',
+                  lineHeight: 1.4,
                 }}
               >
-                Hi There,
+                {firstGreeting}
+                {showFirstCursor && <span className="typing-cursor"></span>}
               </motion.h2>
               <motion.h2
                 variants={greetingVariants}
@@ -348,9 +423,11 @@ export default function HeroSection() {
                   fontSize: '1.45rem',
                   fontWeight: '700',
                   textAlign: 'left',
+                  lineHeight: 1.4,
                 }}
               >
-                Welcome to my Space,
+                {secondGreeting}
+                {showSecondCursor && <span className="typing-cursor"></span>}
               </motion.h2>
             </div>
             
@@ -358,7 +435,7 @@ export default function HeroSection() {
               variants={titleVariants}
               className="mb-4 hero-main-title"
               style={{ 
-                marginBottom: '2rem',
+                marginBottom: '1rem',
                 textAlign: 'left',
                 display: 'flex',
                 flexDirection: 'column',
@@ -370,8 +447,8 @@ export default function HeroSection() {
                 style={{
                   fontSize: 'clamp(2.5rem, 5vw, 4.5rem)',
                   fontWeight: 'bold',
-                  lineHeight: 1.1,
-                  marginBottom: '1rem',
+                  lineHeight: 1.2,
+                  marginBottom: '0.5rem',
                   textAlign: 'left',
                 }}
               >
@@ -383,7 +460,7 @@ export default function HeroSection() {
               variants={containerVariants}
               className="mb-6"
               style={{ 
-                marginBottom: '2.5rem',
+                marginBottom: '1rem',
                 textAlign: 'left',
                 padding: '0',
                 display: 'flex',
@@ -401,16 +478,17 @@ export default function HeroSection() {
                   animate="visible"
                   className="text-section text-text-secondary font-semibold leading-tight role-text"
                   style={{
-                    fontSize: 'clamp(1.1rem, 2.5vw, 1.4rem)',
-                    fontWeight: '600',
+                    fontSize: 'clamp(1.4rem, 2.5vw, 1.4rem)',
+                    fontWeight: '700',
                     color: 'rgba(255, 255, 255, 0.8)',
-                    marginBottom: '0.8rem',
+                    marginBottom: '0.5rem',
                     cursor: 'default',
                     listStyle: 'none',
                     textAlign: 'left',
                     display: 'block',
                     width: '100%',
                     maxWidth: '600px',
+                    lineHeight: 1.4,
                   }}
                 >
                   {role}
@@ -422,12 +500,13 @@ export default function HeroSection() {
               variants={descriptionVariants}
               className="text-lg text-text-secondary mb-8 max-w-2xl leading-relaxed hero-description"
               style={{
-                fontSize: 'clamp(1rem, 2vw, 1.2rem)',
-                color: 'rgba(255, 255, 255, 0.7)',
-                maxWidth: '700px',
-                lineHeight: 1.7,
-                marginTop: '2rem',
-                marginBottom: '3rem',
+                fontSize: 'clamp(1.4rem, 2vw, 1.3rem)',
+                color: '#ffffffee',
+                maxWidth: '650px',
+                fontWeight: 500,
+                lineHeight: 1.55,
+                marginTop: '1rem',
+                marginBottom: '2rem',
                 marginLeft: '0',
                 marginRight: 'auto',
                 textAlign: 'left',
@@ -454,7 +533,7 @@ export default function HeroSection() {
                 className="hero-button text-base font-medium"
                 style={{
                   padding: '0.75rem 1rem',
-                  fontSize: '1.25rem',
+                  fontSize: '1.15rem',
                   fontWeight: '600',
                   color: 'white',
                   cursor: 'pointer',
