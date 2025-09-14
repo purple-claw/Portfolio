@@ -63,6 +63,21 @@ export default function Navigation() {
     <>
       {/* Global Styles */}
       <style jsx global>{`
+        body {
+          padding-top: 0 !important;
+        }
+
+        header {
+          position: fixed !important;
+          top: 0 !important;
+          z-index: 1000 !important;
+        }
+
+        .navbar-container {
+          position: relative !important;
+          z-index: 1001 !important;
+        }
+
         @keyframes float {
           0%, 100% { transform: translate(0, 0) scale(1); }
           25% { transform: translate(30px, -40px) scale(1.1); }
@@ -167,7 +182,7 @@ export default function Navigation() {
         width: '100%',
         height: '100%',
         pointerEvents: 'none',
-        zIndex: 0,
+        zIndex: -1,
       }}>
         {/* Floating Orbs */}
         <div style={{
@@ -233,9 +248,11 @@ export default function Navigation() {
         top: 0,
         left: 0,
         right: 0,
-        zIndex: 50,
+        zIndex: 1000,
         padding: isScrolled ? '1rem 0' : '2rem 0',
         transition: 'all 0.3s ease',
+        backgroundColor: 'transparent',
+        width: '100%',
       }}>
         <div 
           className="navbar-container"
@@ -243,52 +260,29 @@ export default function Navigation() {
             maxWidth: '1500px',
             margin: '0 auto',
             padding: '0.5rem 1.5rem',
-            background: isScrolled ? 'rgba(0, 0, 0, 0.25)' : 'rgba(0, 0, 0, 0.15)',
-            backdropFilter: 'blur(10px)',
-            border: `1px solid ${isScrolled ? 'hsla(0, 0%, 100%, 0.03)' : 'hsla(0, 0%, 100%, 0.00)'}`,
+            background: isScrolled ? 'rgba(0, 0, 0, 0.4)' : 'rgba(0, 0, 0, 0.2)',
+            backdropFilter: 'blur(20px)',
+            WebkitBackdropFilter: 'blur(20px)',
+            border: `1px solid ${isScrolled ? 'rgba(255, 255, 255, 0.1)' : 'rgba(255, 255, 255, 0.05)'}`,
             borderRadius: '0.5rem',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'space-between',
             boxShadow: isScrolled ? '0 12px 40px rgba(0, 0, 0, 0.4)' : '0 8px 32px rgba(0, 0, 0, 0.3)',
+            position: 'relative',
+            zIndex: 1001,
           }}
         >
-          {/* Logo Section */}
+          {/* Brand Name Only */}
           <div style={{
             display: 'flex',
             alignItems: 'center',
-            gap: '0.9rem',
           }}>
-            <div 
-              className="logo-icon"
-              style={{
-                width: '3rem',
-                height: '3rem',
-                background: 'linear-gradient(135deg, #64ffda, #3f51b5, #9c27b0)',
-                borderRadius: '0.75rem',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                position: 'relative',
-                overflow: 'hidden',
-                cursor: 'pointer',
-                transition: 'transform 0.3s ease',
-              }}
-            >
-              <span style={{
-                color: 'white',
-                fontWeight: 'bold',
-                fontSize: '1.125rem',
-                position: 'relative',
-                zIndex: 1,
-              }}>NS</span>
-            </div>
-            
             <span 
               className="brand-name"
               style={{
                 color: 'white',
-                fontSize: '1.25rem',
+                fontSize: '1.85rem',
                 fontWeight: 'bold',
                 background: 'linear-gradient(135deg, #64ffda, #00bcd4, #3f51b5)',
                 backgroundClip: 'text',
@@ -296,9 +290,10 @@ export default function Navigation() {
                 WebkitTextFillColor: 'transparent',
                 backgroundSize: '200% 100%',
                 animation: 'gradient-flow 4s ease infinite',
+                cursor: 'pointer',
               }}
             >
-              Nithin Sri
+              NITIN SRI
             </span>
           </div>
 
