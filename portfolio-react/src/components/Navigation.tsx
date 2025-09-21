@@ -192,7 +192,7 @@ export default function Navigation() {
           borderRadius: '50%',
           opacity: 0.15,
           filter: 'blur(40px)',
-          background: 'radial-gradient(circle, #64ffda 20%, transparent)',
+          background: 'radial-gradient(circle, #FF8000 20%, transparent)',
           top: '10%',
           left: '20%',
           animation: 'float 8s ease-in-out infinite',
@@ -206,7 +206,7 @@ export default function Navigation() {
           borderRadius: '50%',
           opacity: 0.15,
           filter: 'blur(40px)',
-          background: 'radial-gradient(circle, #00bcd4 20%, transparent)',
+          background: 'radial-gradient(circle, #FF8000 20%, transparent)',
           top: '20%',
           right: '20%',
           animation: 'float 8s ease-in-out infinite',
@@ -281,16 +281,16 @@ export default function Navigation() {
             <span 
               className="brand-name"
               style={{
-                color: 'white',
-                fontSize: '1.85rem',
-                fontWeight: 'bold',
-                background: 'linear-gradient(135deg, #64ffda, #00bcd4, #3f51b5)',
-                backgroundClip: 'text',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundSize: '200% 100%',
-                animation: 'gradient-flow 4s ease infinite',
-                cursor: 'pointer',
+              color: 'white',
+              fontSize: '1.85rem',
+              fontWeight: 'bold',
+              background: 'linear-gradient(135deg, #FF8000, #ffb347, #ffcc80)',
+              backgroundClip: 'text',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundSize: '200% 100%',
+              animation: 'gradient-flow 4s ease infinite',
+              cursor: 'pointer',
               }}
             >
               NITIN SRI
@@ -324,7 +324,7 @@ export default function Navigation() {
                       position: 'relative',
                       display: 'block',
                       padding: '0.5rem 1.5rem',
-                      color: activeSection === link.href.slice(0) ? '#64ffda' : 'rgba(255, 255, 255, 0.9)',
+                      color: activeSection === link.href.slice(0) ? '#FF8000' : 'rgba(255, 255, 255, 0.9)',
                       textDecoration: 'none',
                       fontWeight: '600',
                       fontSize: '1.15rem',
@@ -332,7 +332,7 @@ export default function Navigation() {
                       transition: 'all 0.3s ease',
                       overflow: 'hidden',
                       background: activeSection === link.href.slice(0) ? '#70a79a4b' : 'transparent',
-                      border: activeSection === link.href.slice(1) ? '0.75px solid hsla(166, 80%, 52%, 0.96)' : '1px solid transparent',
+                      border: activeSection === link.href.slice(1) ? '0.75px solid #FF8000' : '1px solid transparent',
                     }}
                     onClick={(e) => {
                       e.preventDefault();
@@ -389,7 +389,7 @@ export default function Navigation() {
               width: '3rem',
               height: '3rem',
               background: 'rgba(100, 255, 218, 0.1)',
-              border: '1px solid rgba(100, 255, 218, 0.3)',
+              border: '1px solid hsla(27, 91%, 67%, 0.30)',
               borderRadius: '0.75rem',
               cursor: 'pointer',
               transition: 'all 0.3s ease',
@@ -469,7 +469,7 @@ export default function Navigation() {
                         style={{
                           display: 'block',
                           padding: '1rem 1.5rem',
-                          color: activeSection === link.href.slice(1) ? '#64ffda' : 'rgba(255, 255, 255, 0.9)',
+                          color: activeSection === link.href.slice(1) ? '#FF8000' : 'rgba(255, 255, 255, 0.9)',
                           textDecoration: 'none',
                           fontWeight: '500',
                           borderRadius: '0.75rem',

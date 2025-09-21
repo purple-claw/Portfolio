@@ -5,14 +5,14 @@
 /* CSS Variables for Design System */
 :root {
   /* Color Palette */
-  --bg-primary: #0a0a0a;
-  --bg-secondary: #161616;
-  --bg-tertiary: #0a0a0a;
+  --bg-primary: #000000;
+  --bg-secondary: #000000;
+  --bg-tertiary: #000000;
   --text-primary: #ededed;
   --text-secondary: #8892b0;
-  --accent-primary: #64ffda;
+  --accent-primary: #FF8000;
   --accent-secondary: #8892b0;
-  --accent-hover: rgba(100, 255, 218, 0.1);
+  --accent-hover: rgba(255, 128, 0, 0.1);
   
   /* Typography */
   --font-sans: 'Outfit', sans-serif;
@@ -24,7 +24,7 @@
   --container-max-width: 1200px;
   
   /* Legacy support */
-  --background: #0a0a0a;
+  --background: #000000;
   --foreground: #ededed;
 }
 
@@ -339,13 +339,13 @@ a:hover {
   height: 16px;
   position: relative;
   z-index: 10;
-  box-shadow: 0 0 0 3px rgba(100, 255, 218, 0.2);
+  box-shadow: 0 0 0 3px rgba(255, 128, 0, 0.2);
   transition: all 0.3s ease;
 }
 
 .circle:hover {
   transform: scale(1.2);
-  box-shadow: 0 0 0 6px rgba(100, 255, 218, 0.3);
+  box-shadow: 0 0 0 6px rgba(255, 128, 0, 0.3);
 }
 
 .work-progress {
@@ -357,9 +357,9 @@ a:hover {
   background: linear-gradient(
     to bottom,
     transparent 0%,
-    rgba(100, 255, 218, 0.3) 10%,
-    rgba(100, 255, 218, 0.6) 50%,
-    rgba(100, 255, 218, 0.3) 90%,
+    #ff80002d 10%,
+    rgba(255, 128, 0, 0.6) 50%,
+    #ff800029 90%,
     transparent 100%
   );
   transform: translateX(-50%);
@@ -374,12 +374,12 @@ a:hover {
   background: linear-gradient(
     to bottom,
     var(--accent-primary),
-    rgba(100, 255, 218, 0.8)
+    rgba(255, 128, 0, 0.8)
   );
   transform: translateX(-50%);
   z-index: 2;
   border-radius: 1px;
-  box-shadow: 0 0 8px rgba(100, 255, 218, 0.4);
+  box-shadow: 0 0 8px rgba(255, 128, 0, 0.4);
 }
 
 .work-progress-bar {
@@ -397,19 +397,19 @@ a:hover {
 .tags {
   color: var(--accent-primary);
   text-align: center;
-  background-color: rgba(100, 255, 218, 0.1);
+  background-color: rgba(255, 128, 0, 0.1);
   padding: 0.4rem 0.8rem;
   border-radius: 0.5rem;
   font-size: 0.875rem;
   font-weight: 500;
-  border: 1px solid rgba(100, 255, 218, 0.2);
+  border: 1px solid rgba(255, 128, 0, 0.2);
   font-family: var(--font-mono);
   transition: all 0.3s ease;
   margin-right: 0;
 }
 
 .tags:hover {
-  background-color: rgba(100, 255, 218, 0.2);
+  background-color: rgba(255, 128, 0, 0.2);
   border-color: var(--accent-primary);
   transform: translateY(-1px);
 }
@@ -448,7 +448,7 @@ a:hover {
 
 .project-image-placeholder {
   background-color: var(--background-secondary);
-  border: 1px solid rgba(100, 255, 218, 0.15);
+  border: 1px solid rgba(255, 128, 0, 0.15);
   border-radius: 0.75rem;
   aspect-ratio: 16/10;
   display: flex;
@@ -461,7 +461,7 @@ a:hover {
 }
 
 .project-image-placeholder:hover {
-  border-color: rgba(100, 255, 218, 0.3);
+  border-color: rgba(255, 128, 0, 0.3);
   background-color: rgba(22, 22, 22, 0.8);
   transform: translateY(-2px);
 }
@@ -572,4 +572,36 @@ a:hover {
   .container-work {
     padding: 0 1rem;
   }
+}
+
+/* Glowing Background Effects */
+.glass-effect {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Smooth scroll improvements */
+html {
+  scroll-behavior: smooth !important;
+}
+
+body {
+  background-color: #000000 !important;
+  position: relative;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+
+@supports (scroll-behavior: smooth) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+main, section, nav, header, footer {
+  position: relative;
+  z-index: 1;
 }

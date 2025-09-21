@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import PerformanceMonitor from '@/components/PerformanceMonitor';
+import GlowingBackground from '@/components/GlowingBackground';
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -38,6 +39,7 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
       </head>
       <body className="antialiased">
+        <GlowingBackground />
         <PerformanceMonitor />
         {children}
       </body>

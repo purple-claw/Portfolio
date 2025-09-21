@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 
 export default function HeroSection() {
   const roles = [
-    "Aspiring Software Engineer",
+    "Software Developer(Data, Full-Stack, Cloud)",
     "LLM Developer & AI & ML Researcher"
   ];
 
@@ -248,7 +248,7 @@ export default function HeroSection() {
           display: inline-block;
           width: 2px;
           height: 1.2em;
-          background-color: rgba(100, 255, 218, 0.8);
+          background-color: hsla(18, 100%, 70%, 0.80);
           margin-left: 2px;
           animation: typing-cursor 1s infinite;
         }
@@ -260,10 +260,10 @@ export default function HeroSection() {
 
         @keyframes text-glow {
           0%, 100% { 
-            text-shadow: 0 0 20px rgba(100, 255, 218, 0.5);
+            text-shadow: 0 0 20px hsla(31, 100%, 70%, 0.50);
           }
           50% { 
-            text-shadow: 0 0 30px rgba(100, 255, 218, 0.8), 0 0 40px rgba(100, 255, 218, 0.6);
+            text-shadow: 0 0 30px #FF8000, 0 0 40px hsla(26, 100%, 70%, 0.60);
           }
         }
 
@@ -281,7 +281,7 @@ export default function HeroSection() {
         }
 
         .hero-title {
-          background: linear-gradient(135deg, #64ffda, #3b82f6, #9333ea);
+          background: linear-gradient(135deg, #FF8C00 0%, #FF8C00 80%, #FFD700 95%, #FF4500 100%);
           background-clip: text;
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
@@ -298,7 +298,7 @@ export default function HeroSection() {
 
         .role-text:hover {
           transform: translateX(15px) scale(1.02);
-          color: #64ffda !important;
+          color: #FF8000 !important;
           text-shadow: 0 0 20px rgba(100, 255, 218, 0.4);
         }
 
@@ -323,8 +323,8 @@ export default function HeroSection() {
         }
 
         .hero-button {
-          background: linear-gradient(135deg, rgba(100, 255, 218, 0.1), rgba(59, 130, 246, 0.1));
-          border: 2px solid rgba(100, 255, 218, 0.3);
+          background: linear-gradient(135deg, hsla(166, 100%, 70%, 0.00), hsla(217, 91%, 60%, 0.00));
+          border: 2px solid hsla(23, 98%, 54%, 0.71);
           transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
           will-change: transform, background, border-color, box-shadow;
           position: relative;
@@ -347,11 +347,11 @@ export default function HeroSection() {
         }
 
         .hero-button:hover {
-          background: linear-gradient(135deg, rgba(100, 255, 218, 0.25), rgba(59, 130, 246, 0.25));
-          border-color: rgba(100, 255, 218, 0.8);
+          background: linear-gradient(135deg, hsla(166, 100%, 70%, 0.01), hsla(217, 91%, 60%, 0.01));
+          border-color: #FF8000;
           transform: translateY(-5px) scale(1.05);
           box-shadow: 
-            0 25px 50px rgba(100, 255, 218, 0.25),
+            0 25px 50px #ed82488e,
             0 0 50px rgba(100, 255, 218, 0.1);
         }
 
@@ -404,9 +404,9 @@ export default function HeroSection() {
                 variants={greetingVariants}
                 className="greeting-text"
                 style={{
-                  color: 'rgba(234, 240, 238, 1)',
+                  color: 'hsla(160, 17%, 93%, 0.94)',
                   fontSize: '1.45rem',
-                  fontWeight: '700',
+                  fontWeight: '650',
                   marginBottom: '1rem',
                   textAlign: 'left',
                   lineHeight: 1.4,
@@ -419,9 +419,9 @@ export default function HeroSection() {
                 variants={greetingVariants}
                 className="greeting-text"
                 style={{
-                  color: 'rgba(238, 239, 239, 1)',
+                  color: 'hsla(180, 3%, 94%, 0.94)',
                   fontSize: '1.45rem',
-                  fontWeight: '700',
+                  fontWeight: '650',
                   textAlign: 'left',
                   lineHeight: 1.4,
                 }}
@@ -479,7 +479,7 @@ export default function HeroSection() {
                   className="text-section text-text-secondary font-semibold leading-tight role-text"
                   style={{
                     fontSize: 'clamp(1.4rem, 2.5vw, 1.4rem)',
-                    fontWeight: '700',
+                    fontWeight: '650',
                     color: 'rgba(255, 255, 255, 0.8)',
                     marginBottom: '0.5rem',
                     cursor: 'default',
@@ -500,11 +500,11 @@ export default function HeroSection() {
               variants={descriptionVariants}
               className="text-lg text-text-secondary mb-8 max-w-2xl leading-relaxed hero-description"
               style={{
-                fontSize: 'clamp(1.4rem, 2vw, 1.3rem)',
-                color: '#ffffffee',
+                fontSize: 'clamp(1.3rem, 2vw, 1.2rem)',
+                color: 'hsla(0, 0%, 100%, 0.69)',
                 maxWidth: '650px',
-                fontWeight: 500,
-                lineHeight: 1.55,
+                fontWeight: 350,
+                lineHeight: 1.5,
                 marginTop: '1rem',
                 marginBottom: '2rem',
                 marginLeft: '0',
