@@ -131,7 +131,7 @@ export default function AboutSection() {
             viewport={{ once: true, margin: '-100px' }}
             variants={fadeInUpVariants}
           >
-            <div className="space-y-6 text-text-secondary">
+            <div className="space-y-6 text-text-secondary text-lg">
               <p>
                 By day, I architect and build software that (hopefully) doesn't keep my users up at night, unless they're binge-using its brilliantly intuitive features. 
                 By night, I moonlight as a digital burglar, professionally breaking into the very systems I build. This isn't an identity crisis.
@@ -150,7 +150,7 @@ export default function AboutSection() {
               <p>
                 Here are some technologies I've been working with recently:
               </p>
-              <ul className="custom-list grid grid-cols-2 gap-2">
+              <ul className="custom-list grid grid-cols-2 gap-2 text-base">
                 {skills.map((skill, index) => (
                   <motion.li
                     key={skill}
@@ -231,8 +231,8 @@ export default function AboutSection() {
                       </div>
                       
                       <div className="text-center">
-                        <h3 className={`text-sm font-semibold ${platform.textColor} mb-1`}>{platform.name}</h3>
-                        <p className="text-xs text-text-secondary group-hover:text-text-primary transition-colors duration-300">
+                        <h3 className={`text-base font-semibold ${platform.textColor} mb-1`}>{platform.name}</h3>
+                        <p className="text-sm text-text-secondary group-hover:text-text-primary transition-colors duration-300">
                           {platform.description}
                         </p>
                       </div>
